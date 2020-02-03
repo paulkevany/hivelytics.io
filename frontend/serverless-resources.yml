@@ -1,0 +1,21 @@
+websiteBucket:
+  Type: AWS::S3::Bucket
+  Properties: 
+    BucketName: 'hivelytics-dev-frontend'
+    WebsiteConfiguration: 
+      IndexDocument: index.html
+      ErrorDocument: index.html
+
+siteBucketPolicy: 
+  Type: AWS::S3::BucketPolicy
+  Properties: 
+    Bucket:
+      Ref: websiteBucket
+
+    PolicyDocument: 
+      Statement: 
+        - Action: 
+            - 's3:GetObject'
+          Effect: 'Allow'
+          Principal: '*'
+          Resource: 'arn:aws:s3:::hivelytics-dev-frontend/*'

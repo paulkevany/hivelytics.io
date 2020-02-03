@@ -1,0 +1,9 @@
+service: frontend
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+
+resources: 
+  Resources: ${file(./serverless-resources.yml)}
