@@ -4,42 +4,44 @@ import { connect } from 'react-redux'
 
 import { withRouter, Route, Switch } from 'react-router'
 
-//Import components here from ./Components
+// Import components here from ./Components
 
 import Home from './Home'
-
+import Login from './Login'
+import Signup from './Signup'
 
 class Root extends Component {
   componentDidMount() {
-    //Check authentication here??
+    // Check authentication here??
   }
 
   render() {
- //   const { authenticated } = this.props
+    const { authenticated } = this.props
 
- //   if (typeof authenticated === 'undefined') {
-  //    return(null)
-      //Implement this, return loading component
-  //  }
+    if (typeof authenticated === 'undefined') {
+      return null
+      // Implement this, return loading component
+      // Still authenticating, show loading spinner
+    }
 
     return (
-      //Reference imported components  here
+      // Reference imported components  here
       <Switch>
-        <Route path="/" component={Home}/>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route path="/" component={Home} />
       </Switch>
     )
   }
 }
 
 Root.propTypes = {
-//  authenticated: PropTypes.bool,
+  authenticated: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
 }
 
-//const mapStateToProps = ({ auth: { authenticated } }) => ({
-//  authenticated
-//})
+const mapStateToProps = ({ auth: { authenticated } }) => ({
+  authenticated
+})
 
-export default withRouter(connect(null)(Root))
-
-
+export default withRouter(connect(mapStateToProps)(Root))
