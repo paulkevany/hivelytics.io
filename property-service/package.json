@@ -1,0 +1,16 @@
+{
+  "name": "property-service",
+  "version": "0.0.1",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.612.0",
+    "bourne": "^1.1.2",
+    "uuid": "^3.4.0"
+  }
+}

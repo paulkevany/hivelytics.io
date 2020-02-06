@@ -1,0 +1,7 @@
+create: 
+ handler: services/create.main
+ events: 
+  - http:
+      path: ''
+      method: post
+      cors: true
