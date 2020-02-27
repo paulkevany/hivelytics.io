@@ -1,11 +1,12 @@
 # package directories
-node_modules
+/node_modules
 jspm_packages
 
 # Serverless directories
 .serverless
 
 #amplify
+/amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/mock-data
