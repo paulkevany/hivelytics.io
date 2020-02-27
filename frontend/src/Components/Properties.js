@@ -11,60 +11,28 @@ import { withStyles } from '@material-ui/core/styles'
 
 // Import actions functions here
 
-const styles = {
-  leftChecklist: {
-    float: 'left',
-    marginLeft: '12%'
-  },
-  rightChecklist: {
-    float: 'right',
-    marginRight: '12%'
-  },
-  loginLink: {
-    color: '#808080',
-    marginTop: 20
-  },
-  description: {
-    color: '#312222'
-  },
-  button: {
-    backgroundColor: '#21FFD0',
-    marginTop: 35,
-    color: '#204E69'
-  },
-  story: {
-    marginTop: -30
-  }
-}
+const styles = {}
 
-class Home extends Component {
-  componentDidMount() {}
-
+class Properties extends Component {
   render() {
     const { classes } = this.props
-    let title = 'Hivelytics.io'
 
-    let authCheck = null
+    const { authenticated } = this.props.auth
 
-    const {
-      auth: { authenticated }
-    } = this.props
-
-    if (!authenticated) {
-      ;<Redirect to="/login" />
-    }
+    const notSignedIn = !authenticated ? <Redirect to="/" /> : null
 
     return (
       <Card>
         <CardContent>
           <Typography>Card Name</Typography>
+          {notSignedIn}
         </CardContent>
       </Card>
     )
   }
 }
 
-Home.propTypes = {
+Properties.propTypes = {
   auth: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired
@@ -73,4 +41,4 @@ Home.propTypes = {
 const mapStateToProps = ({ auth }) => ({
   auth
 })
-export default connect(mapStateToProps)(withStyles(styles)(Home))
+export default connect(mapStateToProps)(withStyles(styles)(Properties))

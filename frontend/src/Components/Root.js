@@ -12,6 +12,7 @@ import Home from './Home'
 import Login from './Login'
 import Signup from './Signup'
 import Dashboard from './Dashboard'
+import Properties from './Properties'
 
 class Root extends Component {
   componentDidMount() {
@@ -22,9 +23,7 @@ class Root extends Component {
     const { authenticated } = this.props
 
     if (typeof authenticated === 'undefined') {
-      //return <CircularProgress color="primary" />
-      // Implement this, return loading component
-      // Still authenticating, show loading spinner
+      return <CircularProgress color="primary" />
     }
 
     return (
@@ -32,6 +31,7 @@ class Root extends Component {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/properties" component={Properties} />
         <Route exact path="/signup" component={Signup} />
         <Route path="/" component={Home} />
       </Switch>
