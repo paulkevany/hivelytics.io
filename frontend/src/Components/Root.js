@@ -1,25 +1,28 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { CircularProgress } from '@material-ui/core'
 
 import { withRouter, Route, Switch } from 'react-router'
+import { checkAuthentication } from '../Actions/auth'
 
 // Import components here from ./Components
 
 import Home from './Home'
 import Login from './Login'
 import Signup from './Signup'
+import Dashboard from './Dashboard'
 
 class Root extends Component {
   componentDidMount() {
-    // Check authentication here??
+    this.props.dispatch(checkAuthentication())
   }
 
   render() {
     const { authenticated } = this.props
 
     if (typeof authenticated === 'undefined') {
-      return null
+      //return <CircularProgress color="primary" />
       // Implement this, return loading component
       // Still authenticating, show loading spinner
     }
@@ -28,6 +31,7 @@ class Root extends Component {
       // Reference imported components  here
       <Switch>
         <Route exact path="/login" component={Login} />
+        <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/signup" component={Signup} />
         <Route path="/" component={Home} />
       </Switch>

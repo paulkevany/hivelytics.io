@@ -19,3 +19,4 @@ siteBucketPolicy:
           Effect: 'Allow'
           Principal: '*'
           Resource: 'arn:aws:s3:::hivelytics-dev-frontend/*'
+

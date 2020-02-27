@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, Button, Box } from '@material-ui/core'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 
 import { withStyles } from '@material-ui/core/styles'
@@ -13,6 +13,14 @@ const styles = {
   title: {
     display: 'block',
     marginLeft: 20
+  },
+  flex: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row'
+  },
+  logoutButton: {
+    marginLeft: 'auto'
   }
 }
 
@@ -21,14 +29,23 @@ class Header extends Component {
     const { classes } = this.props
 
     return (
-      <AppBar position="absolute" className={classes.appBar}>
-        <Toolbar>
-          <HomeOutlinedIcon />
-          <Typography className={classes.title} variant="h6" noWrap>
-            Hivelytics.io
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <div className={classes.flex}>
+        <AppBar position="absolute" className={classes.appBar}>
+          <Toolbar>
+            <HomeOutlinedIcon />
+            <Typography className={classes.title} variant="h6" noWrap>
+              Hivelytics.io
+            </Typography>
+            <Button
+              className={classes.logoutButton}
+              variant="contained"
+              color="secondary"
+            >
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
     )
   }
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
   Divider,
   List,
+  Link,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -38,10 +39,6 @@ class NavBar extends Component {
     drawerOpen: true
   }
 
-  toggleDrawer = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen })
-  }
-
   render() {
     const { classes } = this.props
 
@@ -51,18 +48,25 @@ class NavBar extends Component {
         <Divider />
         <List className={classes.list}>
           {['Properties', 'Tenants', 'Maintenance'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {text === 'Properties' ? (
-                  <HomeOutlinedIcon />
-                ) : null || text === 'Tenants' ? (
-                  <PeopleOutlineOutlinedIcon />
-                ) : null || text === 'Maintenance' ? (
-                  <FormatPaintOutlinedIcon />
-                ) : null}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+            <div>
+              <Link href={text.toLowerCase} />
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {text == 'Properties' ? (
+                    <div>
+                      <Link href="/properties">
+                        <HomeOutlinedIcon />
+                      </Link>
+                    </div>
+                  ) : null || text === 'Tenants' ? (
+                    <PeopleOutlineOutlinedIcon />
+                  ) : null || text === 'Maintenance' ? (
+                    <FormatPaintOutlinedIcon />
+                  ) : null}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </div>
           ))}
         </List>
         <Divider />
@@ -107,8 +111,4 @@ NavBar.propTypes = {
   titles: PropTypes.array.isRequired
 }
 
-const mapStateToProps = ({ app: { titles } }) => ({
-  titles
-})
-
-export default connect(mapStateToProps)(withStyles(styles)(NavBar))
+export default withStyles(styles)(NavBar)

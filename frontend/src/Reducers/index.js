@@ -1,12 +1,12 @@
-import {combineReducers} from 'redux'
-import {connectRouter} from 'connected-react-router'
+import { combineReducers } from 'redux'
+import { connectRouter } from 'connected-react-router'
 
 //Import multiple reducer configs
 
-import app from './app'
+import auth from './auth'
 
-export default history => 
+export default history =>
   combineReducers({
-    app,
+    auth,
     router: connectRouter(history)
   })
