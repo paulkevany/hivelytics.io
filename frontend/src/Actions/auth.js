@@ -16,6 +16,20 @@ export function login({ email, password }) {
   }
 }
 
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+export const SIGNUP_FAILED = 'SIGNUP_FAILED'
+
+export function signup({ email, password }) {
+  return function(dispatch) {
+    dispatch({ type: SIGNUP_REQUEST, payload: { email } })
+    Auth.signUp(email, password).then(
+      () => dispatch({ type: SIGNUP_SUCCESS }),
+      err => dispatch({ type: SIGNUP_FAILED, error: convertError(err) })
+    )
+  }
+}
+
 export const AUTHENTICATION_VALIDATED = 'AUTHENTICATION_VALIDATED'
 export const AUTHENTICATION_INVALIDATED = 'AUTHENTICATION_INVALIDATED'
 
@@ -32,6 +46,7 @@ function convertError(error) {
   let errorText
 
   switch (error.code) {
+    //Login error codes
     case 'InvalidPasswordException' && 'NotAuthorizedException':
       errorText = 'Invalid credentials entered!'
       break
@@ -42,6 +57,21 @@ function convertError(error) {
 
     case 'UserNotConfirmedException':
       errorText = "Your account hasn't been confirmed yet"
+      break
+
+    //Signup error codes
+    case 'UsernameExistsException':
+      errorText = 'A user with this email already exists'
+      break
+
+    case 'InvalidParameterException':
+      errorText = 'Email must be of correct format'
+
+    //Default for when an unhandled exception occurs
+
+    default:
+      errorText = 'An unknown authentication error occured'
+      break
   }
 
   return {

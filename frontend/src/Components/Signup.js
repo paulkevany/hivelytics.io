@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Header from './Header'
+import { signup } from '../Actions/auth'
 
 const styles = {
   container: {
@@ -35,12 +36,40 @@ const styles = {
     display: 'flex',
     marginTop: 25,
     justifyContent: 'center'
+  },
+  errorItem: {
+    color: 'red',
+    textAlign: 'center'
   }
 }
 
 class Signup extends Component {
+  state = {
+    email: '',
+    password: ''
+  }
+
+  handleChange = ({ target: { id, value } }) => this.setState({ [id]: value })
+
+  validateInput = () =>
+    this.state.email.length > 3 && this.state.password.length > 8
+
+  handleSubmit = event => {
+    //Don't refresh page on form submit
+    event.preventDefault()
+    this.props.dispatch(signup(this.state))
+  }
   render() {
     const { classes } = this.props
+    const { signingUp, signupError } = this.props.auth
+
+    const errorItem =
+      !signingUp && signupError ? (
+        <Typography className={classes.errorItem}>
+          {signupError.message}
+        </Typography>
+      ) : null
+
     return (
       <div>
         <Header />
@@ -49,12 +78,13 @@ class Signup extends Component {
             <Typography variant="h5" align="center">
               Signup
             </Typography>
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <TextField
                 variant="outlined"
                 className={classes.textfield}
                 id="email"
                 label="Email"
+                onChange={this.handleChange}
                 type="email"
               />
               <TextField
@@ -63,12 +93,16 @@ class Signup extends Component {
                 id="password"
                 label="Password"
                 type="password"
+                onChange={this.handleChange}
               />
+              {errorItem}
               <Button
                 className={classes.button}
                 variant="contained"
                 className={classes.button}
-                color="primary"
+                color="secondary"
+                disabled={signingUp || !this.validateInput()}
+                type="submit"
               >
                 Signup
               </Button>
@@ -88,6 +122,10 @@ class Signup extends Component {
 }
 
 Signup.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 }
-export default connect(null)(withStyles(styles)(Signup))
+
+const mapStateToProps = ({ auth }) => ({ auth })
+export default connect(mapStateToProps)(withStyles(styles)(Signup))

@@ -56,6 +56,7 @@ class Login extends Component {
     this.state.email.length > 0 && this.state.password.length > 0
 
   handleSubmit = event => {
+    //Don't refresh page on form submit``
     event.preventDefault()
     this.props.dispatch(login(this.state))
   }
@@ -69,7 +70,7 @@ class Login extends Component {
     const loginFailed =
       !loggingIn && loginError ? (
         <Typography className={classes.errorText}>
-          Error: {loginError.message}
+          {loginError.message}
         </Typography>
       ) : null
 
@@ -105,7 +106,8 @@ class Login extends Component {
                 type="submit"
                 variant="contained"
                 className={classes.button}
-                color="primary"
+                color="secondary"
+                disabled={loggingIn || !this.validateInput()}
               >
                 Login
               </Button>
