@@ -53,7 +53,7 @@ class Login extends Component {
   handleChange = ({ target: { id, value } }) => this.setState({ [id]: value })
 
   validateInput = () =>
-    this.state.email.length > 0 && this.state.password.length > 0
+    this.state.email.length > 3 && this.state.password.length >= 8
 
   handleSubmit = event => {
     //Don't refresh page on form submit``
