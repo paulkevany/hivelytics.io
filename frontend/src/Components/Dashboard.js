@@ -6,10 +6,6 @@ import Header from './Header'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 
-// Import Other compoents here
-
-// Import actions functions here
-
 class Dashboard extends Component {
   render() {
     const { classes } = this.props

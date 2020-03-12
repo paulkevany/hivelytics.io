@@ -13,6 +13,8 @@ import Login from './Login'
 import Signup from './Signup'
 import Dashboard from './Dashboard'
 import Properties from './Properties'
+import ConfirmSignup from './ConfirmSignup'
+import NewProperty from './NewProperty'
 
 class Root extends Component {
   componentDidMount() {
@@ -33,6 +35,8 @@ class Root extends Component {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/properties" component={Properties} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/new-property" component={NewProperty} />
+        <Route exact path="/confirm-signup" component={ConfirmSignup} />
         <Route path="/" component={Home} />
       </Switch>
     )

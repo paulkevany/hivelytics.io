@@ -8,7 +8,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Drawer
+  Drawer,
+  Button
 } from '@material-ui/core'
 import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined'
 import FormatPaintOutlinedIcon from '@material-ui/icons/FormatPaintOutlined'
@@ -26,11 +27,17 @@ const styles = {
     position: 'relative',
     zIndex: 1
   },
-  drawerPaper: {
-    width: 240
-  },
   list: {
     marginTop: 75
+  },
+  listItem: {
+    marginLeft: 10,
+    width: 210,
+    alignItems: 'center'
+  },
+  button: {
+    color: '#3d3d29',
+    textTransform: 'inherit'
   }
 }
 
@@ -43,51 +50,75 @@ class NavBar extends Component {
     const { classes } = this.props
 
     const drawer = (
-      <div>
-        <div className={classes.toolbar} />
+      <div className={classes.drawer}>
         <Divider />
         <List className={classes.list}>
-          {['Properties', 'Tenants', 'Maintenance'].map((text, index) => (
-            <div>
-              <Link href={text.toLowerCase} />
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {text == 'Properties' ? (
-                    <div>
-                      <Link href="/properties">
-                        <HomeOutlinedIcon />
-                      </Link>
-                    </div>
-                  ) : null || text === 'Tenants' ? (
-                    <PeopleOutlineOutlinedIcon />
-                  ) : null || text === 'Maintenance' ? (
-                    <FormatPaintOutlinedIcon />
-                  ) : null}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            </div>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['Settings', 'How it works', 'Send Feedback'].map((text, index) => (
-            <ListItem button key={text}>
+          <Button href="/properties" className={classes.button}>
+            <ListItem className={classes.listItem}>
               <ListItemIcon>
-                {text === 'Settings' ? (
-                  <SettingsOutlinedIcon />
-                ) : null || text === 'How it works' ? (
-                  <HelpOutlineOutlinedIcon />
-                ) : null || text === 'Send Feedback' ? (
-                  <SendOutlinedIcon />
-                ) : null}
+                <HomeOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText>Properties</ListItemText>
             </ListItem>
-          ))}
+          </Button>
+          <Button href="/tenants" className={classes.button}>
+            <ListItem className={classes.listItem}>
+              <ListItemIcon>
+                <PeopleOutlineOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText>Tenants</ListItemText>
+            </ListItem>
+          </Button>
         </List>
       </div>
     )
+
+    //  const drawer = (
+    //    <div>
+    //      <div className={classes.toolbar} />
+    //      <Divider />
+    //      <List className={classes.list}>
+    //        {['Properties', 'Tenants', 'Maintenance'].map((text, index) => (
+    //          <div>
+    //            <Link href={text.toLowerCase} />
+    //            <ListItem button key={text}>
+    //              <ListItemIcon>
+    //                {text == 'Properties' ? (
+    //                  <div>
+    //                    <Link href="/properties">
+    //                      <HomeOutlinedIcon />
+    //                    </Link>
+    //                  </div>
+    //                ) : null || text === 'Tenants' ? (
+    //                  <PeopleOutlineOutlinedIcon />
+    //                ) : null || text === 'Maintenance' ? (
+    //                  <FormatPaintOutlinedIcon />
+    //                ) : null}
+    //              </ListItemIcon>
+    //              <ListItemText primary={text} />
+    //            </ListItem>
+    //          </div>
+    //        ))}
+    //      </List>
+    //      <Divider />
+    //      <List>
+    //        {['Settings', 'How it works', 'Send Feedback'].map((text, index) => (
+    //          <ListItem button key={text}>
+    //            <ListItemIcon>
+    //              {text === 'Settings' ? (
+    //                <SettingsOutlinedIcon />
+    //              ) : null || text === 'How it works' ? (
+    //                <HelpOutlineOutlinedIcon />
+    //              ) : null || text === 'Send Feedback' ? (
+    //                <SendOutlinedIcon />
+    //              ) : null}
+    //            </ListItemIcon>
+    //            <ListItemText primary={text} />
+    //          </ListItem>
+    //        ))}
+    //      </List>
+    //    </div>
+    //  )
 
     return (
       <div>

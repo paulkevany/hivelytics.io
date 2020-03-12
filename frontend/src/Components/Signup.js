@@ -9,6 +9,7 @@ import {
   Link
 } from '@material-ui/core'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Header from './Header'
@@ -61,7 +62,7 @@ class Signup extends Component {
   }
   render() {
     const { classes } = this.props
-    const { signingUp, signupError } = this.props.auth
+    const { signingUp, signupError, signedUp, confirmed } = this.props.auth
 
     const errorItem =
       !signingUp && signupError ? (
@@ -69,6 +70,12 @@ class Signup extends Component {
           {signupError.message}
         </Typography>
       ) : null
+
+    const signupSuccess =
+      signedUp && !signupError ? <Redirect to="/confirm-signup" /> : null
+
+    const notConfirmed =
+      signedUp && !confirmed ? <Redirect to="/confirm-signup" /> : null
 
     return (
       <div>
@@ -96,6 +103,8 @@ class Signup extends Component {
                 onChange={this.handleChange}
               />
               {errorItem}
+              {signupSuccess}
+              {notConfirmed}
               <Button
                 className={classes.button}
                 variant="contained"
