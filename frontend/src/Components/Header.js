@@ -5,6 +5,7 @@ import { AppBar, Toolbar, Typography, Button, Box } from '@material-ui/core'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 
 import { withStyles } from '@material-ui/core/styles'
+import { logout } from '../Actions/auth'
 
 const styles = {
   appBar: {
@@ -25,8 +26,27 @@ const styles = {
 }
 
 class Header extends Component {
+  handleLogout = event => {
+    event.preventDefault()
+    this.props.dispatch(logout())
+  }
+
   render() {
     const { classes } = this.props
+    const { authenticated } = this.props.auth
+
+    const logoutButton = authenticated ? (
+      <form onSubmit={this.handleLogout}>
+        <Button
+          variant="contained"
+          color="secondary"
+          type="submit"
+          disabled={!authenticated}
+        >
+          Logout
+        </Button>
+      </form>
+    ) : null
 
     return (
       <div className={classes.flex}>
@@ -36,13 +56,7 @@ class Header extends Component {
             <Typography className={classes.title} variant="h6" noWrap>
               Hivelytics.io
             </Typography>
-            <Button
-              className={classes.logoutButton}
-              variant="contained"
-              color="secondary"
-            >
-              Logout
-            </Button>
+            <div className={classes.logoutButton}>{logoutButton}</div>
           </Toolbar>
         </AppBar>
       </div>
@@ -51,7 +65,10 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 }
 
-export default connect(null)(withStyles(styles)(Header))
+const mapStateToProps = ({ auth }) => ({ auth })
+
+export default connect(mapStateToProps)(withStyles(styles)(Header))

@@ -4,14 +4,37 @@ import { connect } from 'react-redux'
 import NavBar from './NavBar'
 import Header from './Header'
 import { Redirect } from 'react-router-dom'
-import { Typography, Link, Button, Card, CardContent } from '@material-ui/core'
+import {
+  Typography,
+  Button,
+  Fab,
+  Card,
+  CardContent,
+  Grid,
+  Paper
+} from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 
 // Import Other compoents here
 
 // Import actions functions here
 
-const styles = {}
+const styles = {
+  fab: {
+    marginTop: 800,
+    marginRight: 280
+  },
+  text: {
+    bottom: 0,
+    left: 0
+  },
+  container: {
+    marginLeft: 280,
+    width: '80%'
+  }
+}
 
 class Properties extends Component {
   render() {
@@ -22,12 +45,34 @@ class Properties extends Component {
     const notSignedIn = !authenticated ? <Redirect to="/" /> : null
 
     return (
-      <Card>
-        <CardContent>
-          <Typography>Card Name</Typography>
+      <React.Fragment>
+        <Grid
+          container
+          className={classes.container}
+          layout="row"
+          justify="flex-start"
+          alignItems="flex-end"
+        >
+          <Typography variant="subtitle1">
+            No properties have been added! Click the plus icon to add one.
+          </Typography>
+          <NavBar />
+          <Header />
+
           {notSignedIn}
-        </CardContent>
-      </Card>
+          <Grid item>
+            <Fab
+              className={classes.fab}
+              size="large"
+              color="primary"
+              component={Link}
+              to="/new-property"
+            >
+              <AddIcon />
+            </Fab>
+          </Grid>
+        </Grid>
+      </React.Fragment>
     )
   }
 }

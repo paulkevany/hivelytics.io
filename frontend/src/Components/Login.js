@@ -46,7 +46,7 @@ const styles = {
 
 class Login extends Component {
   state = {
-    email: '',
+    email: this.props.auth.email || '',
     password: ''
   }
 
@@ -56,12 +56,19 @@ class Login extends Component {
     this.state.email.length > 3 && this.state.password.length >= 8
 
   handleSubmit = event => {
+    //Don't refresh page on form submit``
     event.preventDefault()
     this.props.dispatch(login(this.state))
   }
 
   render() {
-    const { authenticated, loggingIn, loginError } = this.props.auth
+    const {
+      authenticated,
+      loggingIn,
+      loginError,
+      userUnconfirmed,
+      confirmed
+    } = this.props.auth
     const { classes } = this.props
 
     const signedIn = authenticated ? <Redirect to="/dashboard" /> : null
@@ -69,9 +76,13 @@ class Login extends Component {
     const loginFailed =
       !loggingIn && loginError ? (
         <Typography className={classes.errorText}>
-          Error: {loginError.message}
+          {loginError.message}
         </Typography>
       ) : null
+
+    const notConfirmed = userUnconfirmed ? (
+      <Redirect to="/confirm-signup" />
+    ) : null
 
     return (
       <div>
@@ -89,6 +100,7 @@ class Login extends Component {
                 id="email"
                 label="Email"
                 type="email"
+                value={this.state.email}
                 onChange={this.handleChange}
               />
               <TextField
@@ -100,6 +112,7 @@ class Login extends Component {
                 onChange={this.handleChange}
               />
               {loginFailed}
+              {notConfirmed}
               <Button
                 className={classes.button}
                 type="submit"
